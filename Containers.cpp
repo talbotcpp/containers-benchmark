@@ -20,8 +20,8 @@
 using namespace std;
 using namespace beman::inplace_vector;
 
-constexpr long reserve_size = 10;	// Set the reserve size (and inplace size) here; 0 means reserve will not be called.
-constexpr enum : bool {BACK, FRONT} location = BACK;	// Set the insertion location.
+constexpr long reserve_size = 100;	// Set the reserve size (and inplace size) here; 0 means reserve will not be called.
+constexpr enum : bool {BACK, FRONT} location = FRONT;	// Set the insertion location.
 
 using container_type = list<long>;
 //using container_type = deque<long>;
@@ -83,8 +83,8 @@ struct element {
 
 int main(int argc, char* argv[])
 {
-	long cont_size = 10;
-	if (argc > 1) cont_size = atol(argv[1]);
+	long cntr_size = 100;
+	if (argc > 1) cntr_size = atol(argv[1]);
 	long rack_size = 1000;
 	if (argc > 2) rack_size = atol(argv[2]);
 
@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 
     auto start_time = chrono::high_resolution_clock::now();
 
-	for (value_type n = 1; n <= cont_size; ++n)
+	for (value_type n = 1; n <= cntr_size; ++n)
 		for (auto&& e : rack)
 			e.add(n);
 
@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 
 	println();
 	println("Type = \t{}", typeid(container_type).name());
-	println("Size = \t{} ({})", cont_size, location ? "front" : "back");
+	println("Size = \t{} ({})", cntr_size, location ? "front" : "back");
 	println("Rack = \t{} ({})", rack_size, reserve_size);
 	println();
 	println("Time = \t{} ms", double(elapsed.count()) / 1000.0);				// Convert chrono μs to floating ms.
@@ -114,4 +114,3 @@ int main(int argc, char* argv[])
 	
 	return 0;
 }
-
